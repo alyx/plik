@@ -17,7 +17,6 @@
   "dependencies": {
     "angular": "~1.8.0",
     "bootstrap": "~3.3.5",
-    "bootstrap-flat": "~3.3.4",
     "angular-bootstrap": "~2.3.2",
     "fontawesome": "~4.7.0",
     "underscore": "~1.8.3",

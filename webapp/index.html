@@ -5,10 +5,8 @@
     <!-- META -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="root.gg temporary file upload service">
-    <meta name="author" content="Mathieu Bodjikian, Charles-Antoine Mathieu">
 
-    <title>Plik</title>
+    <title>send.to</title>
 
     <!-- CSS -->
     <link href="css/vendor.css" rel="stylesheet" type="text/css">
@@ -26,22 +24,19 @@
             <div class="row">
                 <!-- PLIK LOGO -->
                 <div class="col-sm-3 text-center">
-                    <h1><a href="#/_">Plik</a></h1>
+                    <!-- <h1><a href="#/_"><img alt="SandSend" height="72px" src="img/icon.svg">Plik</a></h1> -->
+                    <a href="#/_"><img alt="SandSnips" height="72px" src="img/icon.svg"></a>
                 </div>
                 <!-- TOP MENU -->
                 <div class="col-sm-9 text-right hidden-xs">
-                    <a href="#/login" ng-if="config.authentication && !user"><i class="fa fa-lock"></i> Authentication</a>
+                    <a href="#/login" ng-if="config.authentication && !user"><i class="fa fa-lock"></i> Login</a>
                     <a href="#/login" ng-if="config.authentication && user">{{user.login}}</a>
                     &nbsp;
                     <a href="#/admin" ng-if="config.authentication && user && user.admin"><i class="fa fa-wrench"></i> Admin&nbsp;</a>
-
-                    <a href="#/clients"><i class="fa fa-keyboard-o"></i> Command line client</a>
-                    &nbsp;
-                    <a href="https://github.com/root-gg/plik/tree/master"><i class="fa fa-github"></i> Source code</a>
                 </div>
                 <!-- TOP MENU ( mobile ) -->
                 <div class="col-sm-9 text-center hidden-sm hidden-md hidden-lg">
-                    <a href="#/login" ng-if="config.authentication && !user"><i class="fa fa-lock"></i> Authentication</a>
+                    <a href="#/login" ng-if="config.authentication && !user"><i class="fa fa-lock"></i> Login</a>
                     <a href="#/login" ng-if="config.authentication && user">{{user.login}}</a>
                 </div>
             </div>
@@ -55,7 +50,7 @@
 <!-- FOOTER -->
 <footer class="footer" ng-controller="MenuCtrl">
     <div ng-if="config.abuseContact" class="container text-center">
-        <p>For abuse contact {{config.abuseContact}}</p>
+        <p>For abuse contact {{config.abuseContact}} | <a href="https://github.com/alyx/plik"><i class="fa fa-github"></i></a></p>
     </div>
 </footer>
 
