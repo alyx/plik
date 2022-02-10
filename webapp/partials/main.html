@@ -1,5 +1,3 @@
-
-
 <div id="maindiv" class="row">
     <div class="col-sm-3 center-block">
         <!-- UPLOAD MENU -->
@@ -11,7 +9,7 @@
                     <i data-swoff-text="OFF" data-swon-text="ON"></i>
                     Destruct after the first download
                     <a tooltip-placement="right"
-                       uib-tooltip="The files will be removed from the server right after the first download.">?</a>
+                        uib-tooltip="The files will be removed from the server right after the first download.">?</a>
                 </label>
             </div>
             <!-- STREAMING -->
@@ -20,7 +18,7 @@
                     <input name="checkbox-destruct" type="checkbox" ng-model="upload.stream">
                     <i data-swoff-text="OFF" data-swon-text="ON"></i> Streaming
                     <a tooltip-placement="right"
-                       uib-tooltip="The files will not be stored on the server. Upload will begin when the remote user starts downloading.">?</a>
+                        uib-tooltip="The files will not be stored on the server. Upload will begin when the remote user starts downloading.">?</a>
                 </label>
             </div>
             <!-- REMOVABLE -->
@@ -29,17 +27,17 @@
                     <input name="checkbox-removable" type="checkbox" ng-model="upload.removable">
                     <i data-swoff-text="OFF" data-swon-text="ON"></i> Removable
                     <a tooltip-placement="right"
-                       uib-tooltip="Allow manual removal of the uploaded files from the server at any moment.">?</a>
+                        uib-tooltip="Allow manual removal of the uploaded files from the server at any moment.">?</a>
                 </label>
             </div>
             <!-- PASSWORD -->
             <div class="menu-item" ng-show="config.protectedByPassword">
                 <label class="switch-input">
                     <input name="checkbox-password" type="checkbox" ng-model="$parent.password"
-                           ng-change="upload.password = ''">
+                        ng-change="upload.password = ''">
                     <i data-swoff-text="OFF" data-swon-text="ON"></i> Password
                     <a tooltip-placement="right"
-                       uib-tooltip="Protect your upload with credentials. You will be prompted for them before the upload and before the download.">?</a>
+                        uib-tooltip="Protect your upload with credentials. You will be prompted for them before the upload and before the download.">?</a>
                 </label>
             </div>
             <!-- COMMENTS -->
@@ -49,13 +47,13 @@
                     <i data-swoff-text="OFF" data-swon-text="ON"></i> Comments (<a
                         href="https://daringfireball.net/projects/markdown/syntax" target="_blank">Markdown</a>)
                     <a tooltip-placement="right"
-                       uib-tooltip="Add some comments to the upload. Markdown is supported and a live preview is generated.">?</a>
+                        uib-tooltip="Add some comments to the upload. Markdown is supported and a live preview is generated.">?</a>
                 </label>
             </div>
             <div class="menu-item">
                 <p></p>
                 <textarea class="form-control" ng-model="upload.comments" ng-show="enableComments=='1'"
-                          style=""></textarea>
+                    style=""></textarea>
             </div>
             <div class="menu-footer">
                 <p></p>
@@ -70,10 +68,9 @@
                             Files will be automatically removed in
                             <div style="display:inline-block;">
                                 <input class="form-control" style="width:60px;display:inline-block;" type="number"
-                                       ng-model="$parent.ttlValue" ng-show="ttlUnit != 'never'">
+                                    ng-model="$parent.ttlValue" ng-show="ttlUnit != 'never'">
                                 <select class="form-control" style="width:auto;display:inline-block;"
-                                        ng-options="unit as unit for unit in ttlUnits"
-                                        ng-model="$parent.ttlUnit"></select>
+                                    ng-options="unit as unit for unit in ttlUnits" ng-model="$parent.ttlUnit"></select>
                             </div>
                         </div>
                     </form>
@@ -84,77 +81,64 @@
                 <p></p>
 
                 <div class="" style="text-align:center;">
-                    <a href="" class="small" ng-click="newUpload(true);"
-                       tooltip-placement="bottom" uib-tooltip="Allow adding files to an upload after its creation.">
+                    <a href="" class="small" ng-click="newUpload(true);" tooltip-placement="bottom"
+                        uib-tooltip="Allow adding files to an upload after its creation.">
                         Create empty upload
                     </a>
                 </div>
             </div>
         </div>
         <!-- DOWNLOAD MENU -->
-        <div class="tile menu" ng-if="mode == 'download' && somethingToDownload()">
+        <div class="tile menu">
             <!-- QR CODE -->
-            <div class="text-center hidden-xs hidden-sm" ng-click="displayQRCodeUpload()">
-                <p><img ng-src="{{getQrCodeUploadUrl(200)}}" alt="QR Code"/></p>
-            </div>
-            <!-- EXPIRATION DATE -->
-            <div class="menu-item" ng-show="upload.ttl != 0">
-                <p class="text-center">This upload will {{ getExpirationDate() }}</p>
+            <div class="text-center hidden-xs hidden-sm" ng-click="displayQRCodeUpload()" ng-if="mode == 'download' && somethingToDownload()">
+                <p><img ng-src="{{getQrCodeUploadUrl(200)}}" alt="QR Code" /></p>
             </div>
             <div class="menu-item text-center" ng-if="upload.uploadToken">
-                <a href="" class="small" ng-click="setAdminUrl()"
-                   tooltip-placement="bottom" uib-tooltip="Allow adding and removing files to an upload after its creation.">
+                <a href="" class="small" ng-click="setAdminUrl()" tooltip-placement="bottom"
+                    uib-tooltip="Allow adding and removing files to an upload after its creation.">
                     Admin url
                 </a>
             </div>
-        </div>
-        <!-- DOWNLOAD AS ZIP BUTTON -->
-        <div class="tile menu" ng-if="mode == 'download' && somethingToDownload() && !upload.stream">
-            <div class="menu-item">
+            <!-- DOWNLOAD AS ZIP BUTTON -->
+            <div class="menu-item" ng-if="mode == 'download' && somethingToDownload() && !upload.stream">
                 <a href="{{getZipArchiveUrl()}}">
                     <button type="button" class="btn btn-lg btn-primary btn-block">
                         <i class="glyphicon glyphicon-cloud-download"></i> Zip archive
                     </button>
                 </a>
             </div>
-        </div>
-        <!-- COPY LINK BUTTON -->
-        <div class="tile menu" ng-if="mode == 'download' && somethingToDownload() && !upload.stream">
-            <div class="menu-item">
+            <!-- COPY LINK BUTTON -->
+            <div class="menu-item" ng-if="mode == 'download' && somethingToDownload() && !upload.stream">
+                <br />
                 <div>
-                    <button type="button" class="btn btn-lg btn-primary btn-block"
-                        data-clipboard data-clipboard-text="{{getZipArchiveUrl()}}">
+                    <button type="button" class="btn btn-lg btn-primary btn-block" data-clipboard
+                        data-clipboard-text="{{getZipArchiveUrl()}}">
                         <i class="glyphicon glyphicon-copy"></i> Copy to clipboard
                     </button>
                 </div>
             </div>
-        </div>
-        <!-- ADD FILES BUTTON -->
-        <div class="tile menu" ng-if="mode == 'download' && upload.admin && !upload.stream">
-            <div class="menu-item">
-                <div id="drop-zone-download"
-                     ngf-select="onFileSelect($files)"
-                     ngf-drop="onFileDrop($files,$event)"
-                     ngf-multiple="true"
-                     ngf-drag-over-class="drag-over">
+            <!-- ADD FILES BUTTON -->
+            <div class="menu-item" ng-if="mode == 'download' && upload.admin && !upload.stream">
+                <br />
+                <div id="drop-zone-download" ngf-select="onFileSelect($files)" ngf-drop="onFileDrop($files,$event)"
+                    ngf-multiple="true" ngf-drag-over-class="drag-over">
                     <!-- ADD FILE BUTTON -->
                     <button type="button" class="btn btn-lg btn-primary btn-block">
                         <i class="fa fa-file"></i> Add files
                     </button>
                 </div>
             </div>
-        </div>
-        <!-- UPLOAD BUTTON -->
-        <div class="tile menu" ng-if="somethingToUpload()">
-            <div class="menu-item">
+            <!-- UPLOAD BUTTON -->
+            <div class="menu-item" ng-if="somethingToUpload()">
+                <br />
                 <button type="button" class="btn btn-lg btn-success btn-block" ng-click="newUpload()">
                     <i class="glyphicon glyphicon-cloud-upload"></i> Upload
                 </button>
             </div>
-        </div>
-        <!-- REMOVE BUTTON -->
-        <div class="tile menu" ng-if="mode == 'download' && (upload.removable || upload.admin)">
-            <div class="menu-item">
+            <!-- REMOVE BUTTON -->
+            <div class="menu-item" ng-if="mode == 'download' && (upload.removable || upload.admin)">
+                <br />
                 <button type="button" class="btn btn-lg btn-danger btn-block" ng-click="removeUpload()">
                     <i class="glyphicon glyphicon-remove"></i> Delete
                 </button>
@@ -177,11 +161,8 @@
         <div class="row" ng-show="mode == 'upload'">
             <div class="col-sm-12">
                 <div class="tile">
-                    <div id="drop-zone"
-                         ngf-select="onFileSelect($files)"
-                         ngf-drop="onFileDrop($files,$event)"
-                         ngf-multiple="true"
-                         ngf-drag-over-class="drag-over">
+                    <div id="drop-zone" ngf-select="onFileSelect($files)" ngf-drop="onFileDrop($files,$event)"
+                        ngf-multiple="true" ngf-drag-over-class="drag-over">
                         <div class="drop-text hidden-xs">Drop/paste text or files</div>
                         <!-- ADD FILE BUTTON -->
                         <div class="btn-file center-block">
@@ -202,10 +183,10 @@
                     <div class="col-xs-7">
                         <div class="file-flex">
                             <div class="fa fa-pencil file-pencil-padding"
-                                 ng-click="focus('EditableFileName-' + file.reference)"></div>
-                            <div contenteditable ng-model="$parent.$parent.file.fileName"
-                                 class="file-name" validator="fileNameValidator" invalid-class="file-name-invalid"
-                                 ng-attr-id="{{ 'EditableFileName-' + file.reference }}"></div>
+                                ng-click="focus('EditableFileName-' + file.reference)"></div>
+                            <div contenteditable ng-model="$parent.$parent.file.fileName" class="file-name"
+                                validator="fileNameValidator" invalid-class="file-name-invalid"
+                                ng-attr-id="{{ 'EditableFileName-' + file.reference }}"></div>
                         </div>
                     </div>
                     <!-- SIZE COLUMN -->
@@ -215,7 +196,8 @@
                     <!-- ACTION COLUMN -->
                     <div class="col-xs-3">
                         <button class="btn btn-danger btn-sm pull-right" ng-click="removeFile(file)">
-                            <span class="glyphicon glyphicon-remove"></span><span class="hidden-xs hidden-sm hidden-md"> Remove</span>
+                            <span class="glyphicon glyphicon-remove"></span><span class="hidden-xs hidden-sm hidden-md">
+                                Remove</span>
                         </button>
                     </div>
                 </div>
@@ -228,7 +210,7 @@
                             {{file.fileName}}
                         </div>
                         <div class="small hidden-xs" ng-show="file.showdetails">
-                            <strong>md5 :</strong> {{file.fileMd5}}<br/>
+                            <strong>md5 :</strong> {{file.fileMd5}}<br />
                             <strong>type :</strong> {{file.fileType}}
                         </div>
                     </div>
@@ -241,8 +223,8 @@
                         <!-- PROGRESS BAR -->
                         <div ng-show="file.status == 'uploading'" class="progress">
                             <div class="progress-bar progress-bar-striped active" role="progressbar"
-                                 aria-valuenow="{{file.progress}}" aria-valuemin="0" aria-valuemax="100"
-                                 style="width: {{file.progress}}%; min-width:25px;">
+                                aria-valuenow="{{file.progress}}" aria-valuemin="0" aria-valuemax="100"
+                                style="width: {{file.progress}}%; min-width:25px;">
                                 <span style="min-width:25px;">{{file.progress}}%</span>
                             </div>
                         </div>
@@ -250,24 +232,24 @@
                         <div ng-show="file.status == 'uploaded'">
                             <a href="{{getFileUrl(file,1)}}">
                                 <button data-action="share" title="Download" type="button"
-                                        class="btn btn-success btn-sm"><span
+                                    class="btn btn-success btn-sm"><span
                                         class="glyphicon glyphicon-cloud-download"></span><span
                                         class="hidden-xs hidden-sm"> Download</span></button>
                             </a>
                             <!-- COPY -->
-                            <button title="Copy" type="button" class="btn btn-success btn-sm hidden-xs"
-                                    data-clipboard data-clipboard-text="{{getFileUrl(file,1)}}">
+                            <button title="Copy" type="button" class="btn btn-success btn-sm hidden-xs" data-clipboard
+                                data-clipboard-text="{{getFileUrl(file,1)}}">
                                 <span class="glyphicon glyphicon-copy"></span>
                             </button>
                             <!-- QR CODE -->
                             <button title="Display QRCode" type="button" class="btn btn-success btn-sm hidden-xs"
-                                    ng-click="displayQRCodeFile(file)">
+                                ng-click="displayQRCodeFile(file)">
                                 <span class="glyphicon glyphicon-qrcode"></span>
                                 <!--<span class="hidden-xs hidden-sm hidden-md">QR Code</span>-->
                             </button>
                             <!-- REMOVE FILE -->
                             <button title="Delete File" type="button" class="btn btn-danger btn-sm"
-                                    ng-click="deleteFile(file)" ng-show="upload.removable || upload.admin">
+                                ng-click="deleteFile(file)" ng-show="upload.removable || upload.admin">
                                 <span class="glyphicon glyphicon-remove"></span>
                                 <!--<span class="hidden-xs hidden-sm hidden-md">Remove</span>-->
                             </button>
@@ -280,11 +262,10 @@
         <div class="row" ng-show="mode == 'download' && files.length">
             <div class="col-sm-12">
                 <div class="tile link-summary" style="text-align:center">
-                    <div ng-repeat="file in files"
-                         ng-show="isDownloadable(file)">
+                    <div ng-repeat="file in files" ng-show="isDownloadable(file)">
                         <a href="{{getFileUrl(file)}}"> {{getFileUrl(file)}}</a>
-                        <button style="background-color: transparent; border: none;"
-                            data-clipboard data-clipboard-text="{{getFileUrl(file)}}">
+                        <button style="background-color: transparent; border: none;" data-clipboard
+                            data-clipboard-text="{{getFileUrl(file)}}">
                             <span class="glyphicon glyphicon-copy"></span>
                         </button>
                     </div>

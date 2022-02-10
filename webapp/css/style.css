@@ -30,6 +30,15 @@ body {
     background-size: cover;
 }
 
+#maindiv {
+    background: rgb(12, 12, 13);
+    border-color: rgb(42, 42, 46);
+    padding: 5px 5px 5px 5px;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 16px;
+}
+
 /* View */
 
 #view {
@@ -135,12 +144,21 @@ footer a:hover, footer a:visited, footer a:link, footer a:active {
 
 .tile {
     /* background-color: rgba(255, 255, 255, 0.7); */
+    /* box-shadow: 2px 2px 5px 0 rgba(0, 0, 0, 0.52); */
+    margin-bottom: 5px;
+}
+
+.tile .menu {
+    background-color: black;
+    border-style: none;
+    border-radius: 0.25rem;
+}
+
+.tile #drop-zone {
     border-color: rgb(74, 74, 79);
     border-width: 2px;
     border-style: dashed;
     border-radius: 0.25rem;
-    /* box-shadow: 2px 2px 5px 0 rgba(0, 0, 0, 0.52); */
-    margin-bottom: 5px;
 }
 
 .tile > .panel-heading {
@@ -246,4 +264,18 @@ footer a:hover, footer a:visited, footer a:link, footer a:active {
 .token-speach {
     font-size : 12px;
     font-family: sans-serif;
+}
+
+/* Modals */
+.modal-content {
+    background-color: rgb(74, 74, 79) !important;
+}
+
+.modal-header, .modal-footer {
+    border-color: rgb(55, 55, 59) !important;   
+}
+
+
+.panel {
+    background-color: rgb(74, 74, 79) !important;
 }
