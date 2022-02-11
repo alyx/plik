@@ -1,6 +1,13 @@
 import { AppProps } from "next/app";
 import Head from "next/head";
-import { render } from "react-dom";
+import { Provider as ReduxProvider } from "react-redux";
+
+import { ChakraProvider } from "@chakra-ui/react";
+
+import { createStore } from "../redux";
+import { theme } from "../theme";
+
+const store = createStore({});
 
 export default function App({ Component, pageProps }: AppProps) {
 	return (
@@ -9,7 +16,11 @@ export default function App({ Component, pageProps }: AppProps) {
 				<meta charSet="utf-8" />
 				<meta name="viewport" content="initial-scale=1.0, width=device-width" />
 			</Head>
-			<Component {...pageProps} />
+			<ReduxProvider store={store}>
+				<ChakraProvider theme={theme}>
+					<Component {...pageProps} />
+				</ChakraProvider>
+			</ReduxProvider>
 		</>
 	);
 }
