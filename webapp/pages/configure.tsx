@@ -31,10 +31,13 @@ export default function Configure() {
 		router.push("/");
 	}
 
-	const upload = useCallback(async (config: UploadConfig) => {
-		await wait(5e3);
-		router.push("/success");
-	}, []);
+	const upload = useCallback(
+		async (config: UploadConfig) => {
+			await wait(5e3);
+			router.push("/success");
+		},
+		[router]
+	);
 
 	return (
 		<Layout title="snips.to &middot; configure" height="100vh">
