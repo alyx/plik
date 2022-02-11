@@ -6,6 +6,7 @@ export interface UploadConfig {
 	removable: boolean;
 	passwordProtected: boolean;
 	password: "";
+	comment: "";
 }
 
 interface UploadState {

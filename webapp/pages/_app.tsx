@@ -3,6 +3,7 @@ import Head from "next/head";
 import { Provider as ReduxProvider } from "react-redux";
 
 import { ChakraProvider } from "@chakra-ui/react";
+import { css } from "@emotion/react";
 
 import { createStore } from "../redux";
 import { theme } from "../theme";
@@ -15,6 +16,11 @@ export default function App({ Component, pageProps }: AppProps) {
 			<Head>
 				<meta charSet="utf-8" />
 				<meta name="viewport" content="initial-scale=1.0, width=device-width" />
+				<style>{css`
+					body {
+						overflow: hidden;
+					}
+				`}</style>
 			</Head>
 			<ReduxProvider store={store}>
 				<ChakraProvider theme={theme}>
