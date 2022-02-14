@@ -4,9 +4,12 @@ import { CheckIcon } from "@chakra-ui/icons";
 import { Button, Code, Heading, Text, VStack } from "@chakra-ui/react";
 
 import { WithTitle } from "../components/WithTitle";
+import { useAppSelector } from "../redux/hooks";
+
 
 export default function Success() {
 	const router = useRouter();
+	const url = useAppSelector(state => state.upload.url);
 
 	return (
 		<WithTitle title="snips.to &middot; success">
@@ -25,9 +28,9 @@ export default function Success() {
 						Your files were successfully uploaded. You can view them by clicking the
 						following link:
 					</Text>
-					<a href="https://github.com">
+					<a href={ url }>
 						<Code padding={2} marginTop={3}>
-							https://snips.to/some-weird/link/goes/here
+							{ url }
 						</Code>
 					</a>
 				</VStack>

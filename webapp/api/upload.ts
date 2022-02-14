@@ -68,11 +68,12 @@ export const uploadFileWithMode = async ({
 	data.append("name", "file");
 	data.append("filename", fileName);
 	data.append("Content-Type", blob.type);
+	data.append("file", blob)
 
-	return Axios.post(`${ENDPOINT}/${mode}/${uploadId}/${fileId}/${fileName}`, blob, {
+	return Axios.post(`${ENDPOINT}/${mode}/${uploadId}/${fileId}/${fileName}`, data, {
 		headers: {
 			"Content-Type": "multipart/form-data",
-			"X-Upload-Token": uploadToken,
+			"X-UploadToken": uploadToken,
 		},
 	});
 };
@@ -82,9 +83,25 @@ export const uploadFileWithMode = async ({
  * @param uploadId
  * @returns
  */
-export const uploadFile = (uploadId: string) => {
-	return Axios.post(`${ENDPOINT}/file/${uploadId}`);
-};
+export const uploadFile = async ({
+	uploadId,
+	url,
+	uploadToken,
+}) => {
+	const blob = await fetch(url).then(r => r.blob());
+
+	const data = new FormData();
+	data.append("file", blob);
+	return Axios.post(`${ENDPOINT}/file/${uploadId}`, data, {
+		headers: {
+			"Content-Type": "multipart/form-data",
+			"X-Upload-Token": uploadToken,
+		},
+	});
+}
+// export const uploadFile = (uploadId: string) => {
+// 	return Axios.post(`${ENDPOINT}/file/${uploadId}`);
+// };
 
 /**
  * Quick mode, automatically create an upload with default parameters and add the file to it.

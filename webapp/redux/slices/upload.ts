@@ -19,6 +19,7 @@ export interface UploadConfig {
 interface UploadState {
 	files: SerializableFile[];
 	config: UploadConfig;
+	url: string;
 }
 
 export const upload = createSlice({
@@ -30,8 +31,11 @@ export const upload = createSlice({
 		updateConfig: (state, action: PayloadAction<UploadConfig>) => {
 			state.config = action.payload;
 		},
+		updateUrl: (state, action: PayloadAction<string>) => {
+			state.url = action.payload;
+		}
 	},
 	initialState: { files: [], config: {} } as UploadState,
 });
 
-export const { addFiles, updateConfig } = upload.actions;
+export const { addFiles, updateConfig, updateUrl } = upload.actions;

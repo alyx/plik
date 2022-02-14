@@ -5,9 +5,12 @@ import {
 	Center, Heading, Progress, ScaleFade, Spinner, Text, VStack
 } from "@chakra-ui/react";
 
-import { createAndUpload, uploadFileWithMode } from "../api/upload";
+import { createAndUpload, uploadFile, uploadFileWithMode } from "../api/upload";
 import { WithTitle } from "../components/WithTitle";
-import { useAppSelector } from "../redux/hooks";
+import { useAppSelector, useAppDispatch } from "../redux/hooks";
+import { updateUrl } from "../redux/slices/upload";
+import { ENDPOINT } from "../api/endpoint";
+
 
 enum UploadState {
 	CreateUpload,
@@ -55,6 +58,7 @@ const getUploadProgress = ({
 export default function Upload() {
 	const router = useRouter();
 	const files = useAppSelector(state => state.upload.files);
+	const dispatch = useAppDispatch();
 
 	const [state, setState] = useState(UploadState.CreateUpload);
 	const [current, setCurrent] = useState(0);
@@ -65,6 +69,7 @@ export default function Upload() {
 				fileName: file.name,
 				fileSize: file.size,
 				fileType: file.type,
+				//fileUrl: file.url,
 				reference: `${i}`,
 			}));
 
@@ -74,6 +79,7 @@ export default function Upload() {
 				ttl: 30 * 24 * 60 * 60,
 			}).catch(() => {
 				router.push("/error");
+
 				return { data: null };
 			});
 			// prevent execution if there was an error
@@ -81,12 +87,13 @@ export default function Upload() {
 			if (!data) {
 				return;
 			}
+			
 			// map references to files
 			const filesWithId = filesWithReferences.map(file => {
 				const uploadedFile = data.files.find(
 					uploadedFile => uploadedFile.reference === file.reference
 				);
-				return { ...file, id: uploadedFile.id };
+				return { ...file, id: uploadedFile.id, fileUrl: files.find(element => element.name == file.fileName).url };
 			});
 			// set upload state
 			setState(UploadState.UploadFile);
@@ -97,12 +104,15 @@ export default function Upload() {
 					mode: "file",
 					fileName: file.fileName,
 					fileId: file.id,
-					uploadId: data.uploadId,
-					url: data.url,
+					uploadId: data.id,
+					url: file.fileUrl,
 					uploadToken: data.uploadToken,
 				}).catch(console.error);
+
+				dispatch(updateUrl(`${ENDPOINT}/file/${data.id}/${file.id}/${file.fileName}`));
 			}
 			// redirect to success
+			
 			router.push("/success");
 		})();
 	}, []);

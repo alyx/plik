@@ -20,8 +20,7 @@ all: clean clean-frontend frontend clients server
 ###
 frontend:
 	@if [ ! -d webapp/node_modules ]; then cd webapp && npm install ; fi
-	@if [ ! -d webapp/bower_components ]; then cd webapp && node_modules/bower/bin/bower install --allow-root ; fi
-	@cd webapp && node_modules/grunt-cli/bin/grunt
+	@cd webapp && ./node_modules/next/dist/bin/next build && ./node_modules/next/dist/bin/next export -o dist
 
 ###
 # Build plik server for the current architecture

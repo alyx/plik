@@ -102,8 +102,7 @@ func AddFile(ctx *context.Context, resp http.ResponseWriter, req *http.Request) 
 		}
 	} else {
 		if file.Name != fileName {
-			ctx.BadRequest("invalid file name")
-			return
+			fileName = file.Name
 		}
 	}
 
