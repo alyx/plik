@@ -4,7 +4,7 @@ import { useDropzone } from "react-dropzone";
 
 import { Heading, Text, VStack } from "@chakra-ui/react";
 
-import Layout from "../components/Layout";
+import { WithTitle } from "../components/WithTitle";
 import { useAppDispatch } from "../redux/hooks";
 import { addFiles } from "../redux/slices/upload";
 
@@ -32,7 +32,7 @@ const Index = () => {
 	const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
 
 	return (
-		<Layout title="snips.to &middot; upload">
+		<WithTitle title="snips.to &middot; upload">
 			<VStack
 				{...getRootProps()}
 				border="5px dashed rgba(255,255,255,0.1)"
@@ -55,7 +55,7 @@ const Index = () => {
 					</>
 				)}
 			</VStack>
-		</Layout>
+		</WithTitle>
 	);
 };
 

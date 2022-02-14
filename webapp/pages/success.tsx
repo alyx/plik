@@ -3,13 +3,13 @@ import { useRouter } from "next/router";
 import { CheckIcon } from "@chakra-ui/icons";
 import { Button, Code, Heading, Text, VStack } from "@chakra-ui/react";
 
-import Layout from "../components/Layout";
+import { WithTitle } from "../components/WithTitle";
 
 export default function Success() {
 	const router = useRouter();
 
 	return (
-		<Layout title="snips.to &middot; success">
+		<WithTitle title="snips.to &middot; success">
 			<VStack spacing={10}>
 				<VStack spacing={2}>
 					<CheckIcon
@@ -33,6 +33,6 @@ export default function Success() {
 				</VStack>
 				<Button onClick={() => router.push("/")}>Upload More</Button>
 			</VStack>
-		</Layout>
+		</WithTitle>
 	);
 }

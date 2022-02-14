@@ -6,7 +6,7 @@ import {
 } from "@chakra-ui/react";
 
 import { createAndUpload, uploadFileWithMode } from "../api/upload";
-import Layout from "../components/Layout";
+import { WithTitle } from "../components/WithTitle";
 import { useAppSelector } from "../redux/hooks";
 
 enum UploadState {
@@ -113,7 +113,7 @@ export default function Upload() {
 	}
 
 	return (
-		<Layout title="snips.to &middot; uploading...">
+		<WithTitle title="snips.to &middot; uploading...">
 			<Center height="100%">
 				<VStack spacing={50}>
 					<VStack spacing={10}>
@@ -134,6 +134,6 @@ export default function Upload() {
 					</VStack>
 				</VStack>
 			</Center>
-		</Layout>
+		</WithTitle>
 	);
 }

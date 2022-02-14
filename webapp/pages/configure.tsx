@@ -6,7 +6,7 @@ import {
 	Heading, HStack, Input, StackDivider, Text, Textarea, VStack
 } from "@chakra-ui/react";
 
-import Layout from "../components/Layout";
+import { WithTitle } from "../components/WithTitle";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { UploadConfig } from "../redux/slices/upload";
 
@@ -31,7 +31,7 @@ export default function Configure() {
 	}
 
 	return (
-		<Layout title="snips.to &middot; configure" height="100vh">
+		<WithTitle title="snips.to &middot; configure">
 			<form onSubmit={handleSubmit(() => router.push("/upload"))}>
 				<Box marginBottom={5}>
 					<Heading size="md">
@@ -168,6 +168,6 @@ export default function Configure() {
 					</HStack>
 				</VStack>
 			</form>
-		</Layout>
+		</WithTitle>
 	);
 }

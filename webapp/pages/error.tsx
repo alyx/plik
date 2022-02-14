@@ -2,13 +2,13 @@ import { useRouter } from "next/router";
 
 import { Button, Code, Heading, HStack, Text, VStack } from "@chakra-ui/react";
 
-import Layout from "../components/Layout";
+import { WithTitle } from "../components/WithTitle";
 
 export default function Error() {
 	const router = useRouter();
 
 	return (
-		<Layout title="snips.to &middot; error">
+		<WithTitle title="snips.to &middot; error">
 			<VStack spacing={10}>
 				<VStack>
 					<Heading>Uh oh!</Heading>
@@ -31,6 +31,6 @@ export default function Error() {
 					<Code color="colors.gray.200">NetworkError</Code>
 				</VStack>
 			</VStack>
-		</Layout>
+		</WithTitle>
 	);
 }
