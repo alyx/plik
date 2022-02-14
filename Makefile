@@ -99,7 +99,7 @@ test-backends:
 # Build a docker image locally
 ###
 docker:
-	@docker buildx build --progress=plain --load -t rootgg/plik:dev .
+	@docker build --progress=plain -t alyxbut/plik:dev
 
 ###
 # Create release archives
