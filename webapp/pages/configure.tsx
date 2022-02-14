@@ -1,5 +1,4 @@
 import { useRouter } from "next/router";
-import { useCallback } from "react";
 import { useForm } from "react-hook-form";
 
 import {
@@ -10,7 +9,6 @@ import {
 import Layout from "../components/Layout";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { UploadConfig } from "../redux/slices/upload";
-import { wait } from "../utils/wait";
 
 export default function Configure() {
 	const dispatch = useAppDispatch();
@@ -27,21 +25,14 @@ export default function Configure() {
 	const passwordProtected = watch("passwordProtected");
 
 	const files = useAppSelector(state => state.upload.files);
-	if (files.length === 0) {
+	if (typeof window !== "undefined" && files.length === 0) {
 		router.push("/");
+		return <></>;
 	}
-
-	const upload = useCallback(
-		async (config: UploadConfig) => {
-			await wait(5e3);
-			router.push("/success");
-		},
-		[router]
-	);
 
 	return (
 		<Layout title="snips.to &middot; configure" height="100vh">
-			<form onSubmit={handleSubmit(upload)}>
+			<form onSubmit={handleSubmit(() => router.push("/upload"))}>
 				<Box marginBottom={5}>
 					<Heading size="md">
 						You are about to upload {files.length} file{files.length === 1 ? "" : "s"}.

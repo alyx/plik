@@ -1,12 +1,12 @@
 import Axios from "axios";
 
 interface UploadParams {
-	oneshot: boolean;
-	stream: boolean;
-	removable: boolean;
+	oneshot?: boolean;
+	stream?: boolean;
+	removable?: boolean;
 	ttl: number;
-	login: string;
-	password: string;
+	login?: string;
+	password?: string;
 	files: {
 		fileName: string;
 		fileSize: number;
@@ -20,10 +20,11 @@ interface UploadParams {
  * @param params
  * @returns
  */
-export const getAndCreate = (params: UploadParams) => {
+export const createAndUpload = (params: UploadParams) => {
 	return Axios.post<{
 		id: string;
 		uploadToken: string;
+		files: { id: string }[];
 	}>("/upload", params);
 };
 
@@ -41,6 +42,8 @@ interface UploadOneParams {
 	uploadId: string;
 	fileId: string;
 	fileName: string;
+	uploadToken: string;
+	url: string;
 }
 
 /**
@@ -48,8 +51,28 @@ interface UploadOneParams {
  * @param param0
  * @returns
  */
-export const uploadFileWithMode = ({ mode, uploadId, fileId, fileName }: UploadOneParams) => {
-	return Axios.post(`/${mode}/${uploadId}/${fileId}/${fileName}`);
+export const uploadFileWithMode = async ({
+	mode,
+	uploadId,
+	fileId,
+	fileName,
+	url,
+	uploadToken,
+}: UploadOneParams) => {
+	const blob = await fetch(url).then(r => r.blob());
+	// create multipart upload
+	const data = new FormData();
+	data.append("Content-Disposition", "form-data");
+	data.append("name", "file");
+	data.append("filename", fileName);
+	data.append("Content-Type", blob.type);
+
+	return Axios.post(`/${mode}/${uploadId}/${fileId}/${fileName}`, blob, {
+		headers: {
+			"Content-Type": "multipart/form-data",
+			"X-Upload-Token": uploadToken,
+		},
+	});
 };
 
 /**

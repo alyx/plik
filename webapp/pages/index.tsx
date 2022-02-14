@@ -14,7 +14,16 @@ const Index = () => {
 
 	const onDrop = useCallback(
 		(acceptedFiles: File[]) => {
-			dispatch(addFiles(acceptedFiles.map(file => URL.createObjectURL(file))));
+			dispatch(
+				addFiles(
+					acceptedFiles.map(file => ({
+						name: file.name,
+						size: file.size,
+						type: file.type,
+						url: URL.createObjectURL(file),
+					}))
+				)
+			);
 			router.push("/configure");
 		},
 		[dispatch]
