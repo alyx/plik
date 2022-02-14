@@ -1,11 +1,13 @@
 import Axios from "axios";
 
+import { ENDPOINT } from "./endpoint";
+
 /**
  * Show plik server version, and some build information (build host, date, git revision,...)
  * @returns
  */
 export const getVersion = () => {
-	return Axios.get("/version");
+	return Axios.get<{ version: string }>(`${ENDPOINT}/version`).then(res => res.data);
 };
 
 /**
@@ -13,5 +15,5 @@ export const getVersion = () => {
  * @returns
  */
 export const getConfig = () => {
-	return Axios.get("/config");
+	return Axios.get(`${ENDPOINT}/config`);
 };

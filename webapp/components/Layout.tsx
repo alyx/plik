@@ -5,6 +5,8 @@ import React, { ReactNode } from "react";
 
 import { Box, Container, ScaleFade, VStack } from "@chakra-ui/react";
 
+import { ServerHealth } from "./ServerHealth";
+
 type Props = {
 	children?: ReactNode;
 	title?: string;
@@ -19,6 +21,7 @@ const Layout = ({ children, title = "This is the default title" }: Props) => {
 			<Head>
 				<title>{title}</title>
 			</Head>
+			<ServerHealth />
 			<Container textAlign="center" height="100vh">
 				<VStack alignItems="center" height="100%">
 					<Box maxWidth="64px" maxHeight="64px" width="100%" margin={10}>

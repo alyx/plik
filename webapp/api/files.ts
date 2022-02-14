@@ -1,5 +1,6 @@
 import Axios from "axios";
 
+import { ENDPOINT } from "./endpoint";
 import { ModeUploadFile } from "./types";
 
 /**
@@ -9,7 +10,7 @@ import { ModeUploadFile } from "./types";
  * @returns
  */
 export const getFileHeaders = ({ mode, uploadId, fileId, fileName }: ModeUploadFile) => {
-	return Axios.head(`/${mode}/${uploadId}/${fileId}/${fileName}`);
+	return Axios.head(`${ENDPOINT}/${mode}/${uploadId}/${fileId}/${fileName}`);
 };
 
 /**
@@ -23,7 +24,7 @@ export const downloadFile = ({
 	fileName,
 	force = false,
 }: ModeUploadFile & { force?: boolean }) => {
-	return Axios.get(`/${mode}/${uploadId}/${fileId}/${fileName}`, {
+	return Axios.get(`${ENDPOINT}/${mode}/${uploadId}/${fileId}/${fileName}`, {
 		responseType: "blob",
 		params: { dl: force ? 1 : undefined },
 	});
@@ -39,7 +40,7 @@ export const downloadArchive = ({ uploadId, fileId }: { uploadId: string; fileId
 	if (!fileId.endsWith(".zip")) {
 		throw new Error("fileId must end with .zip");
 	}
-	return Axios.get(`/archive/${uploadId}/${fileId}`, { responseType: "blob" });
+	return Axios.get(`${ENDPOINT}/archive/${uploadId}/${fileId}`, { responseType: "blob" });
 };
 
 /**
@@ -48,12 +49,12 @@ export const downloadArchive = ({ uploadId, fileId }: { uploadId: string; fileId
  * @returns
  */
 export const deleteFile = ({ mode, uploadId, fileId, fileName }: ModeUploadFile) => {
-	return Axios.delete(`/${mode}/${uploadId}/${fileId}/${fileName}`);
+	return Axios.delete(`${ENDPOINT}/${mode}/${uploadId}/${fileId}/${fileName}`);
 };
 
 export const getQrcode = ({ url, size }: { url: string; size: number }) => {
 	if (size > 1000) {
 		throw new Error("size must be <= 10000");
 	}
-	return Axios.get(`/qrcode?url=${url}&size=${size}`);
+	return Axios.get(`${ENDPOINT}/qrcode?url=${url}&size=${size}`);
 };

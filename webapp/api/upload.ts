@@ -1,5 +1,7 @@
 import Axios from "axios";
 
+import { ENDPOINT } from "./endpoint";
+
 interface UploadParams {
 	oneshot?: boolean;
 	stream?: boolean;
@@ -25,7 +27,7 @@ export const createAndUpload = (params: UploadParams) => {
 		id: string;
 		uploadToken: string;
 		files: { id: string }[];
-	}>("/upload", params);
+	}>(`${ENDPOINT}/upload`, params);
 };
 
 /**
@@ -34,7 +36,7 @@ export const createAndUpload = (params: UploadParams) => {
  * @returns
  */
 export const getUploadMeta = (id: string) => {
-	return Axios.get(`/upload/${id}`);
+	return Axios.get(`${ENDPOINT}/upload/${id}`);
 };
 
 interface UploadOneParams {
@@ -67,7 +69,7 @@ export const uploadFileWithMode = async ({
 	data.append("filename", fileName);
 	data.append("Content-Type", blob.type);
 
-	return Axios.post(`/${mode}/${uploadId}/${fileId}/${fileName}`, blob, {
+	return Axios.post(`${ENDPOINT}/${mode}/${uploadId}/${fileId}/${fileName}`, blob, {
 		headers: {
 			"Content-Type": "multipart/form-data",
 			"X-Upload-Token": uploadToken,
@@ -81,12 +83,12 @@ export const uploadFileWithMode = async ({
  * @returns
  */
 export const uploadFile = (uploadId: string) => {
-	return Axios.post(`/file/${uploadId}`);
+	return Axios.post(`${ENDPOINT}/file/${uploadId}`);
 };
 
 /**
  * Quick mode, automatically create an upload with default parameters and add the file to it.
  */
 export const uploadQuick = () => {
-	return Axios.post("/");
+	return Axios.post(`${ENDPOINT}/`);
 };
