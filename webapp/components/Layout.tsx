@@ -21,13 +21,13 @@ const Layout = ({ children, title = "This is the default title" }: Props) => {
 			</Head>
 			<Container textAlign="center" height="100vh">
 				<VStack alignItems="center" height="100%">
-					<Box maxWidth="100px" maxHeight="100px" width="100%" margin={10}>
+					<Box maxWidth="64px" maxHeight="64px" width="100%" margin={10}>
 						<Image
 							src={"/img/icon.svg"}
 							alt="snips.to"
 							layout="responsive"
-							width={100}
-							height={100}
+							width={64}
+							height={64}
 						/>
 					</Box>
 					<ScaleFade

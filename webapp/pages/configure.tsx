@@ -3,8 +3,8 @@ import { useCallback } from "react";
 import { useForm } from "react-hook-form";
 
 import {
-	Button, Checkbox, Collapse, Divider, FormControl, FormHelperText, FormLabel,
-	HStack, Input, StackDivider, Textarea, VStack
+	Box, Button, Checkbox, Divider, FormControl, FormHelperText, FormLabel,
+	Heading, HStack, Input, StackDivider, Text, Textarea, VStack
 } from "@chakra-ui/react";
 
 import Layout from "../components/Layout";
@@ -42,9 +42,18 @@ export default function Configure() {
 	return (
 		<Layout title="snips.to &middot; configure" height="100vh">
 			<form onSubmit={handleSubmit(upload)}>
+				<Box marginBottom={5}>
+					<Heading size="md">
+						You are about to upload {files.length} file{files.length === 1 ? "" : "s"}.
+					</Heading>
+					<Text color="gray.500">
+						You can configure your upload options below, or - alternatively - you can
+						add more files to your upload.
+					</Text>
+				</Box>
 				<VStack height="100%" spacing={5}>
 					<Divider />
-					<VStack height="50vh" overflow={"scroll"} spacing={5} width="90%">
+					<VStack height="40vh" overflow={"scroll"} spacing={5} width="90%">
 						<FormControl isDisabled={streaming || isSubmitting}>
 							<VStack alignItems="start" textAlign="left">
 								<HStack>
@@ -114,19 +123,7 @@ export default function Configure() {
 							</VStack>
 						</FormControl>
 
-						<Collapse
-							in={passwordProtected && !isSubmitting}
-							animateOpacity
-							style={{
-								width: "100%",
-								background: "rgba(255,255,255,0.1)",
-								padding: 10,
-								borderBottomLeftRadius: 5,
-								borderBottomRightRadius: 5,
-							}}
-							startingHeight={0}
-							endingHeight={90}
-						>
+						{passwordProtected && (
 							<FormControl>
 								<VStack alignItems="start" textAlign="left">
 									<Input
@@ -138,7 +135,7 @@ export default function Configure() {
 									</FormHelperText>
 								</VStack>
 							</FormControl>
-						</Collapse>
+						)}
 						<Divider />
 
 						<FormControl>
@@ -157,17 +154,27 @@ export default function Configure() {
 						<StackDivider flex={1}></StackDivider>
 					</VStack>
 					<Divider />
-					<Input
-						as={Button}
-						type="submit"
-						variant="filled"
-						height={50}
-						style={{ marginBottom: 50 }}
-						isLoading={isSubmitting}
-						disabled={isSubmitting}
-					>
-						Upload
-					</Input>
+					<HStack style={{ marginBottom: 50 }} flex={1}>
+						<Input
+							as={Button}
+							type="submit"
+							variant="filled"
+							height={50}
+							isLoading={isSubmitting}
+							disabled={isSubmitting}
+							colorScheme="green"
+						>
+							Upload
+						</Input>
+						<Button
+							size="lg"
+							paddingLeft={10}
+							paddingRight={10}
+							onClick={() => router.push("/")}
+						>
+							Add more
+						</Button>
+					</HStack>
 				</VStack>
 			</form>
 		</Layout>

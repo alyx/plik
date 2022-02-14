@@ -18,7 +18,7 @@ export const upload = createSlice({
 	name: "upload",
 	reducers: {
 		addFiles: (state, action: PayloadAction<string[]>) => {
-			state.files = action.payload;
+			state.files.push(...action.payload);
 		},
 		updateConfig: (state, action: PayloadAction<UploadConfig>) => {
 			state.config = action.payload;
